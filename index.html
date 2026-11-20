@@ -59,13 +59,6 @@ body{
 .pin.shake{animation:shake .45s}
 @keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 #err{height:20px;font-size:13px;color:#fff3a8;font-weight:500}
-.lock-btn-wrap{display:flex;gap:10px;margin-top:6px}
-.btn-soft{
-  background:rgba(255,255,255,0.22);border:1px solid rgba(255,255,255,0.45);
-  color:#fff;padding:8px 18px;border-radius:999px;font:500 13px var(--body);
-  cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s;
-}
-.btn-soft:hover,.btn-soft:active{background:rgba(255,255,255,0.35)}
 
 /* ===== Khung cảnh chính ===== */
 #main{position:fixed;inset:0;z-index:2;opacity:0;transition:opacity 1s}
@@ -171,37 +164,6 @@ body{
   font-size:18px;cursor:pointer;display:grid;place-items:center;
 }
 
-/* ===== Teacher Picker Modal ===== */
-#teacherModal{
-  position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;
-  padding:16px;background:rgba(30,5,20,0.85);opacity:0;visibility:hidden;
-  transition:all .3s ease;backdrop-filter:blur(5px);
-}
-#teacherModal.show{opacity:1;visibility:visible}
-.modal-box{
-  background:#fff;color:#4a2340;width:min(95vw,460px);max-height:85vh;
-  border-radius:16px;padding:24px 20px;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.5);
-  display:flex;flex-direction:column;gap:14px;
-}
-.modal-header{display:flex;justify-content:space-between;align-items:center}
-.modal-header h3{font-size:18px;font-weight:700;color:#c2255f}
-.modal-header button{background:none;border:none;font-size:22px;cursor:pointer;color:#888}
-.teacher-grid{display:grid;grid-template-columns:1fr;gap:8px;max-height:60vh;overflow-y:auto;padding-right:4px}
-.teacher-card{
-  display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
-  border-radius:10px;border:1.5px solid #f3d4e2;background:#fff8fa;
-  cursor:pointer;transition:all .2s;text-align:left;
-}
-.teacher-card:hover,.teacher-card.active{border-color:#c2255f;background:#ffeef4}
-.tc-info strong{display:block;font-size:15px;color:#c2255f}
-.tc-info span{font-size:12.5px;color:#874266}
-.tc-btn-wrap{display:flex;gap:6px}
-.tc-action{
-  padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;
-  cursor:pointer;border:none;transition:all .2s;
-}
-.tc-select{background:#c2255f;color:#fff}
-.tc-copy{background:#fce8f0;color:#c2255f;border:1px solid #f3c2d6}
 
 
 
@@ -252,9 +214,6 @@ body{
     <input inputmode="numeric" maxlength="1" autocomplete="off">
   </div>
   <div id="err"></div>
-  <div class="lock-btn-wrap">
-    <button type="button" class="btn-soft" id="btn-pick-teacher">👩‍🏫 Đổi Thầy / Cô nhận thư</button>
-  </div>
 </div>
 
 <!-- Main Stage -->
@@ -272,25 +231,11 @@ body{
     <div id="lb"></div>
     <div class="sign" id="ls"></div>
     <div class="letter-actions">
-      <button type="button" class="letter-btn outline" id="btn-letter-change">🌸 Xem thư Thầy / Cô khác</button>
       <button type="button" class="letter-btn" id="btn-copy-curr">📋 Sao chép link thư này</button>
     </div>
   </div>
 </div>
 
-<!-- Teacher Picker Modal -->
-<div id="teacherModal">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h3>Chọn Thầy / Cô nhận thư</h3>
-      <button type="button" id="closeModal">✕</button>
-    </div>
-    <p style="font-size:13px;color:#874266;margin-bottom:6px">
-      Mỗi Thầy / Cô có một đường link và lời chúc riêng biệt được chuẩn bị chu đáo:
-    </p>
-    <div class="teacher-grid" id="teacherGrid"></div>
-  </div>
-</div>
 
 <div id="toast">Đã sao chép link!</div>
 <button id="playbtn">🔊 Bấm vào đây để bật nhạc</button>
@@ -413,6 +358,39 @@ const TEACHERS = {
     ],
     sign: "KÍNH CHÚC THẦY 20-11 THẬT NHIỀU NIỀM VUI"
   },
+  "taq": {
+    name: "Trung tâm TAQ",
+    role: "Quý Thầy Cô & Cán bộ Trung tâm TAQ",
+    title: "Kính Gửi Quý Thầy Cô & Cán Bộ Trung Tâm TAQ",
+    body: [
+      "Nhân ngày Nhà giáo Việt Nam 20-11, chúng em xin kính chúc toàn thể Quý Thầy Cô, các anh chị cán bộ tại Trung tâm TAQ luôn dồi dào sức khỏe, hạnh phúc và tràn đầy nhiệt huyết.",
+      "Cảm ơn Trung tâm TAQ đã luôn là môi trường học tập tuyệt vời, tận tâm đồng hành, truyền cảm hứng và trang bị cho chúng em những hành trang tri thức vững chắc trên con đường tương lai.",
+      "Kính chúc Trung tâm ngày càng phát triển vững mạnh, gặt hái thêm nhiều thành tựu rực rỡ và luôn là điểm tựa tin cậy chắp cánh cho bao thế hệ học viên 🎓"
+    ],
+    sign: "TRI ÂN TRUNG TÂM TAQ 20-11"
+  },
+  "thanh": {
+    name: "Thầy Thạnh",
+    role: "Thầy Thạnh Kính Yêu",
+    title: "Gửi Thầy Thạnh Kính Mến",
+    body: [
+      "Nhân ngày Nhà giáo Việt Nam 20-11, chúng em xin gửi đến Thầy những lời chúc mừng tốt đẹp và ấm áp nhất!",
+      "Cảm ơn Thầy vì sự ân cần chỉ bảo, tinh thần trách nhiệm và sự kiên nhẫn dìu dắt chúng em trong suốt thời gian qua. Từng lời dạy bảo chân tình của Thầy luôn là hành trang quý giá giúp chúng em trưởng thành và vững bước hơn mỗi ngày.",
+      "Kính chúc Thầy luôn mạnh khỏe, bình an, gia đình hạnh phúc và luôn giữ trọn ngọn lửa đam mê với sự nghiệp giáo dục cao quý 💐"
+    ],
+    sign: "KÍNH CHÚC THẦY THẠNH 20-11 THẬT HẠNH PHÚC"
+  },
+  "cuong": {
+    name: "Thầy Cường",
+    role: "Thầy Cường Kính Yêu",
+    title: "Gửi Thầy Cường Kính Mến",
+    body: [
+      "Nhân ngày Nhà giáo Việt Nam 20-11, chúng em xin kính chúc Thầy luôn dồi dào sức khỏe, tràn ngập niềm vui và thành công rực rỡ trong công tác giảng dạy.",
+      "Cảm ơn Thầy đã luôn tận tụy, nhiệt tình và đồng hành cùng chúng em. Không chỉ truyền thụ những bài học quý báu, Thầy còn truyền cho chúng em ngọn lửa bản lĩnh và sự tự tin để vượt qua mọi thử thách.",
+      "Kính chúc Thầy luôn giữ vững phong độ, mãi là người truyền cảm hứng tuyệt vời và gặt hái được thật nhiều trái ngọt trong sự nghiệp trồng người 🌟"
+    ],
+    sign: "KÍNH CHÚC THẦY CƯỜNG 20-11 VẠN SỰ NHƯ Ý"
+  },
   "all": {
     name: "Quý Thầy Cô",
     role: "Toàn thể Thầy Cô giáo",
@@ -436,7 +414,10 @@ const ALIASES = {
   "7":"ngoc", "ngoc":"ngoc", "congoc":"ngoc", "co-ngoc":"ngoc", "anh":"ngoc", "tienganh":"ngoc", "ngoainngu":"ngoc",
   "8":"ha-hang", "su":"ha-hang", "lichsu":"ha-hang", "ha":"ha-hang", "hang":"ha-hang", "co-ha":"ha-hang", "co-hang":"ha-hang", "hahang":"ha-hang",
   "9":"tan", "tan":"tan", "thaytan":"tan", "thay-tan":"tan", "qpan":"tan", "gdqp":"tan", "quocphong":"tan",
-  "10":"du", "du":"du", "thaydu":"du", "thay-du":"du", "hoa":"du", "hoahoc":"du"
+  "10":"du", "du":"du", "thaydu":"du", "thay-du":"du", "hoa":"du", "hoahoc":"du",
+  "11":"taq", "taq":"taq", "trungtamtaq":"taq", "trung-tam-taq":"taq",
+  "12":"thanh", "thanh":"thanh", "thaythanh":"thanh", "thay-thanh":"thanh",
+  "13":"cuong", "cuong":"cuong", "thaycuong":"cuong", "thay-cuong":"cuong"
 };
 
 const $ = id => document.getElementById(id);
@@ -554,68 +535,6 @@ $('btn-copy-curr').onclick = () => {
   copyLink(currentTeacherKey, t.name);
 };
 
-function buildTeacherModal(){
-  const grid = $('teacherGrid');
-  grid.innerHTML = '';
-  
-  const entries = [
-    { key: 'all', name: 'Quý Thầy Cô (Chung)', role: 'Toàn thể giáo viên' },
-    { key: 'diem', name: 'Cô Diễm', role: 'Chủ nhiệm & Sinh học' },
-    { key: 'truc', name: 'Cô Trúc', role: 'Môn Toán' },
-    { key: 'tho', name: 'Cô Thơ', role: 'Môn Tin học' },
-    { key: 'chau', name: 'Cô Châu', role: 'Môn Vật lí' },
-    { key: 'quang', name: 'Cô Quang', role: 'Môn Ngữ văn' },
-    { key: 'lan', name: 'Cô Lan', role: 'Môn Thể dục' },
-    { key: 'ngoc', name: 'Cô Ngọc', role: 'Môn Ngoại ngữ' },
-    { key: 'ha-hang', name: 'Cô Hà & Cô Hằng', role: 'Môn Lịch sử' },
-    { key: 'tan', name: 'Thầy Tân', role: 'Môn GDQP - AN' },
-    { key: 'du', name: 'Thầy Du', role: 'Môn Hóa học' }
-  ];
-  
-  entries.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'teacher-card' + (currentTeacherKey === item.key ? ' active' : '');
-    card.innerHTML = `
-      <div class="tc-info">
-        <strong>${item.name}</strong>
-        <span>${item.role}</span>
-      </div>
-      <div class="tc-btn-wrap">
-        <button type="button" class="tc-action tc-select">Mở xem</button>
-        <button type="button" class="tc-action tc-copy" title="Sao chép link gửi">Sao chép</button>
-      </div>
-    `;
-    card.querySelector('.tc-select').onclick = (e) => {
-      e.stopPropagation();
-      applyTeacher(item.key);
-      history.replaceState(null, '', getShareUrl(item.key));
-      $('teacherModal').classList.remove('show');
-      showToast(`Đã chọn: ${item.name}`);
-    };
-    card.querySelector('.tc-copy').onclick = (e) => {
-      e.stopPropagation();
-      copyLink(item.key, item.name);
-    };
-    card.onclick = () => {
-      applyTeacher(item.key);
-      history.replaceState(null, '', getShareUrl(item.key));
-      $('teacherModal').classList.remove('show');
-      showToast(`Đã chọn: ${item.name}`);
-    };
-    grid.appendChild(card);
-  });
-}
-
-$('btn-pick-teacher').onclick = () => {
-  buildTeacherModal();
-  $('teacherModal').classList.add('show');
-};
-$('btn-letter-change').onclick = () => {
-  buildTeacherModal();
-  $('teacherModal').classList.add('show');
-};
-$('closeModal').onclick = () => $('teacherModal').classList.remove('show');
-$('teacherModal').onclick = e => { if(e.target === $('teacherModal')) $('teacherModal').classList.remove('show'); };
 
 /* ===== Canvas Rendering: Nền hồng mặc định & Bó hoa hồng lãng mạn ===== */
 const cv = $('fx'), cx = cv.getContext('2d');
